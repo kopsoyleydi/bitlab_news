@@ -1,4 +1,8 @@
+<%@ page import="classes.User" %><%
 
+    User currentUser = (User) session.getAttribute("cur_user");
+
+%>
 <div class="container">
 
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(35,67,105,0.85);">

@@ -40,4 +40,25 @@ public class DBManager {
         }
         return people;
     }
+
+    public static boolean addUser(User user){
+        int rows = 0;
+        try {
+            PreparedStatement statement = connection.prepareStatement("" +
+                    "INSERT INTO users (email, password, full_name, role)" +
+                    "VALUES (?,?,?,?)");
+
+            statement.setString(1,user.getEmail());
+            statement.setString(2,user.getPassword());
+            statement.setString(3, user.getFullName());
+            statement.setString(4, user.getRole());
+
+            rows = statement.executeUpdate();
+            statement.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return rows > 0;
+    }
 }
