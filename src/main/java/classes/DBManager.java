@@ -113,4 +113,39 @@ public class DBManager {
         return blogs;
     }
 
+    public static Blog getBlog(Long id){
+        Blog blog = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement("" +
+                    "SELECT b.id, b.title, b.content, b.post_date, b.user_id, b.url, u.full_name, u.email, u.password,u.role  " +
+                    "FROM blogs b " +
+                    "INNER JOIN users u ON u.id = b.user_id " +
+                    "WHERE b.id = ? " +
+                    "ORDER BY b.post_date DESC ");
+            statement.setLong(1,id);
+
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                blog = new Blog();
+                blog.setId(resultSet.getLong("id"));
+                User user = new User();
+                user.setId(resultSet.getLong("user_id"));
+                user.setFullName(resultSet.getString("full_name"));
+                user.setPassword(resultSet.getString("password"));
+                user.setEmail(resultSet.getString("email"));
+                user.setRole(resultSet.getString("role"));
+                blog.setUser(user);
+                blog.setTitle(resultSet.getString("title"));
+                blog.setContent(resultSet.getString("content"));
+                blog.setUrl(resultSet.getString("url"));
+                blog.setPostDate(resultSet.getTimestamp("post_date"));
+            }
+            statement.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return blog;
+    }
+
 }

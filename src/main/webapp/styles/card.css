@@ -2,10 +2,20 @@
     display: flex;
     flex-direction: row;
 }
+#cards{
+}
 .text{
     width: 50%;
+    font-family:"Roboto Thin";
+}
+.text h2{
+    font-family: "Yu Gothic UI Light";
 }
 .image{
     width: 40%;
     margin: 0 auto;
+}
+#drop{
+    background-color: navy;
+    color: white;
 }

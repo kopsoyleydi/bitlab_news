@@ -6,21 +6,19 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-import java.awt.image.DataBuffer;
 import java.io.IOException;
-import java.util.ArrayList;
 
-@WebServlet(name = "ProfileServlet", value = "/profile")
-public class ProfileServlet extends HttpServlet {
+@WebServlet(name = "BlogServlet", value = "/getBlog")
+public class BlogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<Blog> profBlog = DBManager.getAllBlogs();
-        request.setAttribute("prof", profBlog);
-        request.getRequestDispatcher("profile.jsp").forward(request,response);
+        request.getRequestDispatcher("blog.jsp").forward(request,response);
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        Long id = Long.parseLong(request.getParameter("id"));
+        Blog blog = DBManager.getBlog(id);
+        request.setAttribute("blog",blog);
+        request.getRequestDispatcher("blog.jsp").forward(request,response);
     }
 }

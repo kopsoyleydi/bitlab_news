@@ -76,6 +76,7 @@
             <button class="btn btn-success">ADD BLOG</button>
           </div>
         </div>
+
       </form>
     </div>
   </div>
