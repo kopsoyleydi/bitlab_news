@@ -3,7 +3,7 @@
 <head>
     <%@include file="components/head.jsp"%>
     <link rel="stylesheet" href="styles/profile.css">
-    <title><%=currentUser.getFullName()%></title>
+    <title>Profile</title>
 </head>
 <body>
 <%@include file="components/header.jsp"%>

@@ -108,7 +108,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-12">
-                        <button class="btn btn-success">SIGN UP</button>
+                        <button class="btn btn-success" id="sign">SIGN UP</button>
                     </div>
                 </div>
             </form>
