@@ -63,6 +63,16 @@
         </div>
         <div class="row mt-3">
           <div class="col-12">
+            <label>Image url </label>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12">
+            <input class="form-control" name="url" rows="5" placeholder="Link">
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
             <button class="btn btn-success">ADD BLOG</button>
           </div>
         </div>

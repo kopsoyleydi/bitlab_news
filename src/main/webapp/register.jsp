@@ -55,11 +55,12 @@
             <%
                 }
             %>
-            <form action="/register" method="post">
+            <form action="/register" method="post" >
                 <div class="row">
                     <div class="col-12">
                         <label>EMAIL</label>
                     </div>
+
                 </div>
                 <div class="row mt-2">
                     <div class="col-12">
@@ -69,11 +70,14 @@
                 <div class="row mt-3">
                     <div class="col-12">
                         <label>PASSWORD</label>
+                        <div class="col-12" style="color: red">
+                        <label id="emailMes"></label>
+                    </div>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-12">
-                        <input type="password" class="form-control" required placeholder="Password" name="password">
+                        <input type="password" class="form-control" required placeholder="Password" name="password" id="password">
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -108,12 +112,14 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-12">
-                        <button class="btn btn-success" id="sign">SIGN UP</button>
+                        <button class="btn btn-success" id="sign" onclick="validate()" type="button">SIGN UP</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 <%@include file="components/footer.jsp"%>
+    <script src="upload.js">
+    </script>
 </body>
 </html>

@@ -68,11 +68,12 @@ public class DBManager {
         int rows = 0;
         try{
             PreparedStatement statement = connection.prepareStatement("" +
-                    "INSERT INTO blogs (user_id, title, content, post_date) " +
-                    "VALUES (?, ?, ?, NOW())");
+                    "INSERT INTO blogs (user_id, title, content, post_date, url) " +
+                    "VALUES (?, ?, ?, NOW(),?)");
             statement.setLong(1, blog.getUser().getId());
             statement.setString(2, blog.getTitle());
             statement.setString(3, blog.getContent());
+            statement.setString(4,blog.getUrl());
             rows = statement.executeUpdate();
             statement.close();
         }catch (Exception e){
@@ -85,7 +86,7 @@ public class DBManager {
         ArrayList<Blog> blogs = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement("" +
-                    "SELECT b.id, b.title, b.content, b.post_date, b.user_id, u.full_name, u.email " +
+                    "SELECT b.id, b.title, b.content, b.post_date, b.user_id, b.url, u.full_name, u.email " +
                     "FROM blogs b " +
                     "INNER JOIN users u ON u.id = b.user_id " +
                     "ORDER BY b.post_date DESC ");
@@ -101,6 +102,7 @@ public class DBManager {
                 user.setEmail(resultSet.getString("email"));
                 user.setFullName(resultSet.getString("full_name"));
                 blog.setUser(user);
+                blog.setUrl(resultSet.getString("url"));
                 blogs.add(blog);
             }
             statement.close();

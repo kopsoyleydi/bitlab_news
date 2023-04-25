@@ -6,6 +6,7 @@
 <head>
     <title>BitLab News</title>
     <%@include file="components/head.jsp"%>
+    <link rel="stylesheet" href="styles/card.css">
 </head>
 <body>
 <%@include file="components/header.jsp"%>
@@ -17,15 +18,22 @@
                 if(blogs!=null){
                     for(Blog blog : blogs){
             %>
-            <div class="row mt-3">
-                <div class="col-11 mx-auto p-3" style="background-color: lightgrey;">
-                    <h2><%=blog.getTitle()%></h2>
-                    <p class="mt-2"><%=blog.getContent()%></p>
-                    <p class="mt-2">
-                        Posted by <strong><%=blog.getUser().getFullName()%></strong>
-                        at <strong><%=blog.getPostDate()%></strong>
-                    </p>
+            <div class="row mt-3" id="cards">
+                <div class="col-10 mx-auto p-3" style="background-color: lightgrey; display: flex">
+                    <div class="text">
+                        <h2><%=blog.getTitle()%></h2>
+                        <p class="mt-3"><%=blog.getContent()%></p>
+                        <p class="mt-5">
+                            Posted by <strong><%=blog.getUser().getFullName()%></strong>
+                            at <strong><%=blog.getPostDate()%></strong>
+                        </p>
+                    </div>
+                    <div class="image" >
+                        <img src="<%=blog.getUrl()%>" style="width: 100%; height: 150px">
+                    </div>
+
                 </div>
+
             </div>
             <%
                     }

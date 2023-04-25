@@ -1,0 +1,11 @@
+#block{
+    display: flex;
+    flex-direction: row;
+}
+.text{
+    width: 50%;
+}
+.image{
+    width: 40%;
+    margin: 0 auto;
+}

@@ -29,10 +29,12 @@ public class AddBlogServlet extends HttpServlet {
             redirect = "/addblog?error";
             String title = request.getParameter("title");
             String content = request.getParameter("content");
+            String url = request.getParameter("url");
             Blog blog = new Blog();
             blog.setTitle(title);
             blog.setContent(content);
             blog.setUser(currentUser);
+            blog.setUrl(url);
             if(DBManager.addBlog(blog)){
                 redirect = "/addblog?success";
             }
