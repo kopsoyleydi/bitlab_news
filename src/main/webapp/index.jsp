@@ -23,13 +23,13 @@
                     <div class="text">
                         <h2><%=blog.getTitle()%></h2>
                         <p class="mt-3"><%=blog.getContent()%></p>
-                        <p class="mt-5">
+                        <p class="mt-2">
                             Posted by <strong><%=blog.getUser().getFullName()%></strong>
                             at <strong><%=blog.getPostDate()%></strong>
                         </p>
                     </div>
                     <div class="image" >
-                        <img src="<%=blog.getUrl()%>" style="width: 100%; height: 150px">
+                        <img src="<%=blog.getUrl()%>" style="width: 100%; height: 200px">
                     </div>
 
                 </div>
