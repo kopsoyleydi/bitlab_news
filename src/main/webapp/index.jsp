@@ -1,5 +1,6 @@
 <%@ page import="classes.Blog" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="classes.Comment" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -21,7 +22,7 @@
             %>
             <div class="row mt-3" id="cards">
                 <form action="/getBlog" method="get">
-                <div class="col-10 mx-auto p-3" style="background-color: lightgrey; display: flex">
+                <div class="col-10 mx-auto p-3" style="background-color: #e7e7e7; display: flex">
                     <div class="text">
                         <h2><%=blog.getTitle()%></h2>
                         <p class="mt-3"><%=blog.getContent()%></p>
@@ -30,19 +31,19 @@
                             at <strong><%=blog.getPostDate()%></strong>
                         </p>
                         <input type="hidden" value="<%=blog.getId()%>" name="id">
-                        <button class="btn btn-success btn-sm mt-4">Learn more</button>
+                        <button class="btn btn-primary btn-sm mt-4">Learn more</button>
                     </div>
                     <div class="image" >
                         <img src="<%=blog.getUrl()%>" style="width: 100%; height: 200px">
                     </div>
                 </div>
-
                 </form>
             </div>
             <%
                     }
                 }
             %>
+
         </div>
     </div>
 </div>

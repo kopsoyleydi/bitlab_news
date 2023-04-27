@@ -89,8 +89,11 @@
                                 if(currentUser != null){
                                     if(currentUser.getRole_id() == 1){
                             %>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 EDIT
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteBlog">
+                                DELETE
                             </button>
                             <%
                                 }
@@ -110,6 +113,26 @@
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                             <button type="button" class="btn btn-primary">Save changes</button>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="deleteBlog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form method="post" action="/deleteBlog">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="deleteBlog">Modal title</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure?
+                                            <input type="hidden" name="deleteBlog_id" value="<%=blog.getId()%>">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button class="btn btn-danger">DELETE</button>
+                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +190,7 @@
                                             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete">
                                                 delete
                                             </button>
-                                        <form action="/deleteComment">
+                                        <form action="/deleteComment" method="post">
                                             <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -176,12 +199,12 @@
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            Are you sure
+                                                            Are you sure?
                                                         </div>
-                                                        <input name="deleteCommentId" type="hidden" value="<%=comment.getId()%>">
+                                                        <input type="hidden" value="<%=comment.getId()%>" name="delete_id">
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-danger">Delete</button>
+                                                            <button class="btn btn-danger">Delete</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -206,7 +229,7 @@
                     }
                             else {
                 %>
-                <h4>404</h4>
+                <h4>Вам нужно войти или создать аккаунт</h4>
                 <%
                     }
                 %>

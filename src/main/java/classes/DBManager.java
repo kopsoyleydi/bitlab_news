@@ -202,4 +202,29 @@ public class DBManager {
         return comments;
     }
 
+    public static void DeleteComment(Long id){
+        try {
+            PreparedStatement statement = connection.prepareStatement("" +
+                    "DELETE FROM comments WHERE id = ? ");
+            statement.setLong(1,id);
+            statement.executeUpdate();
+            statement.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public static void DeleteBlog(Long id){
+        try {
+            PreparedStatement statement = connection.prepareStatement("" +
+                    "DELETE FROM blogs WHERE id = ? ");
+            statement.setLong(1,id);
+            statement.executeUpdate();
+            statement.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
