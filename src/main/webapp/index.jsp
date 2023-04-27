@@ -20,7 +20,7 @@
                     for(Blog blog : blogs){
             %>
             <div class="row mt-3" id="cards">
-                <form action="/getBlog" method="post">
+                <form action="/getBlog" method="get">
                 <div class="col-10 mx-auto p-3" style="background-color: lightgrey; display: flex">
                     <div class="text">
                         <h2><%=blog.getTitle()%></h2>

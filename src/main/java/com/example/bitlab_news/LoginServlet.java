@@ -29,13 +29,9 @@ public class LoginServlet extends HttpServlet {
         if(user!=null){
 
             redirect = "/login?password_error";
-
             if(user.getPassword().equals(password)){
-
                 redirect = "/profile";
-
                 request.getSession().setAttribute("cur_user", user);
-
             }
 
         }

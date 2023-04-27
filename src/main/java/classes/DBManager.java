@@ -150,5 +150,56 @@ public class DBManager {
         }
         return blog;
     }
+    public static boolean addComment(Comment comment){
+        int rows = 0;
+        try{
+            PreparedStatement statement = connection.prepareStatement("" +
+                    "INSERT INTO comments (user_id, blog_id, comment, post_date) " +
+                    "VALUES (?, ?, ?, NOW()) ");
+            statement.setLong(1, comment.getUser().getId());
+            statement.setLong(2, comment.getBlog().getId());
+            statement.setString(3, comment.getComment());
+
+            rows = statement.executeUpdate();
+            statement.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return rows>0;
+    }
+    public static ArrayList<Comment> getAllComments(Long blogId){
+        ArrayList<Comment> comments = new ArrayList<>();
+        try{
+            PreparedStatement statement = connection.prepareStatement("" +
+                    "SELECT c.id, c.user_id, c.comment, c.blog_id, u.full_name, u.email, c.post_date " +
+                    "FROM comments c " +
+                    "INNER JOIN users u ON c.user_id = u.id " +
+                    "WHERE c.blog_id = ? " +
+                    "ORDER BY c.post_date DESC");
+            statement.setLong(1, blogId);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                Comment comment = new Comment();
+                comment.setId(resultSet.getLong("id"));
+                comment.setComment(resultSet.getString("comment"));
+                comment.setPostDate(resultSet.getTimestamp("post_date"));
+                User user = new User();
+                user.setId(resultSet.getLong("user_id"));
+                user.setFullName(resultSet.getString("full_name"));
+                user.setEmail(resultSet.getString("email"));
+                comment.setUser(user);
+                Blog blog = new Blog();
+                blog.setId(resultSet.getLong("blog_id"));
+                comment.setBlog(blog);
+                comments.add(comment);
+            }
+            statement.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return comments;
+    }
 
 }

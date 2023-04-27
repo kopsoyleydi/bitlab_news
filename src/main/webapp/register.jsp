@@ -110,7 +110,6 @@
                         <input type="text" class="form-control" required placeholder="Your role" name="role">
                     </div>
                 </div>
-                <input type="hidden" value="0" name="role_id">
                 <div class="row mt-3">
                     <div class="col-12">
                         <button class="btn btn-success" id="sign" onclick="validate()" type="button">SIGN UP</button>

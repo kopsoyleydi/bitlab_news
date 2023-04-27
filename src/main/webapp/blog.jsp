@@ -1,6 +1,7 @@
 <%@ page import="classes.Blog" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="classes.User" %><%--
+<%@ page import="classes.User" %>
+<%@ page import="classes.Comment" %><%--
   Created by IntelliJ IDEA.
   User: omyrz
   Date: 26.04.2023
@@ -12,10 +13,11 @@
 <head>
     <%
         User currentUser = (User) session.getAttribute("cur_user");
+
         Blog blog = (Blog) request.getAttribute("blog");
     %>
     <%@include file="components/head.jsp"%>
-    <title><%=blog.getTitle()%></title>
+    <title>Blog</title>
     <link rel="stylesheet" href="styles/card.css">
 </head>
 <body>
@@ -72,7 +74,7 @@
     <div class="row mt-3">
         <div class="col-12">
             <div class="row mt-3" id="cards">
-                    <div class="col-10 mx-auto p-3" style="background-color: lightgrey; display: flex">
+                    <div class="col-10 mx-auto p-3" style="background-color: #e7e7e7; display: flex">
                         <%
                             if(blog != null){
                         %>
@@ -90,8 +92,7 @@
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 EDIT
                             </button>
-                            <!-- Modal -->
-                        <%
+                            <%
                                 }
                             }
                         %>
@@ -116,15 +117,99 @@
                         <div class="image" >
                             <img src="<%=blog.getUrl()%>" style="width: 100%; height: 200px">
                         </div>
-                        <%
-                            }
-                            else{
-                        %>
-                        <h3>404</h3>
-                        <%
-                            }
-                        %>
                     </div>
+                <%
+                    }
+                %>
+                <div class="container mt-5">
+                    <div class="row  d-flex justify-content-center">
+                        <div class="col-md-8">
+                            <div class="headings d-flex justify-content-between align-items-center mb-3">
+                                <h5>Comments</h5>
+                                <div class="buttons">
+                            <span class="badge bg-white d-flex flex-row align-items-center">
+                                <span class="text-primary">All comment</span>
+                            </span>
+                                </div>
+                            </div>
+                            <%
+                                if(currentUser!=null){
+                            %>
+                            <div class="col-12 mx-auto p-3 mt-2" style="background-color: white; display: flex">
+                                <div class="col-12">
+                                    <form action="/addcomment" method="post">
+                                        <input type="hidden" name="blog_id" value="<%=blog.getId()%>">
+                                        <textarea class="form-control" name="comment" placeholder="Write a comment"></textarea>
+                                        <button class="btn btn-primary mt-2 btn-sm ms-1">ADD COMMENT</button>
+                                    </form>
+                                </div>
+                            </div>
+                <%
+                    ArrayList<Comment> comments = (ArrayList<Comment>) request.getAttribute("comments");
+                    if(comments!=null){
+                        for(Comment comment : comments){
+                %>
+                            <div class="card p-3 mt-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="user d-flex flex-row align-items-center">
+                                        <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
+                                        <span><small class="font-weight-bold text-primary"><%=comment.getUser().getFullName()%></small>
+                                            <small class="font-weight-bold ms-2"><%=comment.getComment()%></small></span>
+                                    </div>
+                                    <small><%=comment.getPostDate()%></small>
+                                </div>
+                                <div class="action d-flex justify-content-between mt-2 align-items-center">
+                                    <div class="icons align-items-center mt-2">
+                                        <%
+                                            if(currentUser != null){
+                                                if(currentUser.getRole_id() == 1){
+                                        %>
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete">
+                                                delete
+                                            </button>
+                                        <form action="/deleteComment">
+                                            <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="delete">Delete Modal</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure
+                                                        </div>
+                                                        <input name="deleteCommentId" type="hidden" value="<%=comment.getId()%>">
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-danger">Delete</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <%
+                                            }
+                                            }
+                                        %>
+                                    </div>
+                                </div>
+                            </div>
+
+                <%
+                    }
+                    }
+                %>
+                        </div>
+                    </div>
+                </div>
+                <%
+                    }
+                            else {
+                %>
+                <h4>404</h4>
+                <%
+                    }
+                %>
             </div>
         </div>
     </div>

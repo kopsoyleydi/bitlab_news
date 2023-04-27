@@ -23,6 +23,7 @@ public class RegisterServlet extends HttpServlet {
         String re_password = request.getParameter("re_password");
         String fullName = request.getParameter("full_name");
         String role = request.getParameter("role");
+        Long role_id = 2L;
         User checkUser = DBManager.getUser(email);
         if(checkUser == null){
             redirect = "/register?password_error";
@@ -32,6 +33,7 @@ public class RegisterServlet extends HttpServlet {
                 user.setPassword(password);
                 user.setFullName(fullName);
                 user.setRole(role);
+                user.setRole_id(role_id);
                 if(DBManager.addUser(user)){
                     redirect = "/register?success";
                 }
