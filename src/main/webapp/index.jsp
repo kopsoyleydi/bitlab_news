@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="styles/card.css">
 </head>
 <body>
-<%@include file="components/header.jsp"%>
+
 <div class="container" style="min-height: 500px;">
+    <%@include file="components/header.jsp"%>
     <div class="row mt-3">
         <div class="col-12">
             <%

@@ -36,6 +36,7 @@ public class DBManager {
                 people.setPassword(resultSet.getString("password"));
                 people.setFullName(resultSet.getString("full_name"));
                 people.setRole(resultSet.getString("role"));
+                people.setRole_id(resultSet.getLong("role_id"));
             }
             statement.close();
         } catch (Exception e) {
@@ -48,14 +49,14 @@ public class DBManager {
         int rows = 0;
         try {
             PreparedStatement statement = connection.prepareStatement("" +
-                    "INSERT INTO users (email, password, full_name, role)" +
-                    "VALUES (?,?,?,?)");
+                    "INSERT INTO users (email, password, full_name, role, role_id)" +
+                    "VALUES (?,?,?,?,?)");
 
             statement.setString(1,user.getEmail());
             statement.setString(2,user.getPassword());
             statement.setString(3, user.getFullName());
             statement.setString(4, user.getRole());
-
+            statement.setLong(5,user.getRole_id());
             rows = statement.executeUpdate();
             statement.close();
         }
@@ -117,7 +118,8 @@ public class DBManager {
         Blog blog = null;
         try {
             PreparedStatement statement = connection.prepareStatement("" +
-                    "SELECT b.id, b.title, b.content, b.post_date, b.user_id, b.url, u.full_name, u.email, u.password,u.role  " +
+                    "SELECT b.id, b.title, b.content, b.post_date, b.user_id, b.url, u.full_name, u.email," +
+                    " u.password,u.role ,u.role_id  " +
                     "FROM blogs b " +
                     "INNER JOIN users u ON u.id = b.user_id " +
                     "WHERE b.id = ? " +
@@ -134,6 +136,7 @@ public class DBManager {
                 user.setPassword(resultSet.getString("password"));
                 user.setEmail(resultSet.getString("email"));
                 user.setRole(resultSet.getString("role"));
+                user.setRole_id(resultSet.getLong("role_id"));
                 blog.setUser(user);
                 blog.setTitle(resultSet.getString("title"));
                 blog.setContent(resultSet.getString("content"));

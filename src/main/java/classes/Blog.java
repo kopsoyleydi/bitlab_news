@@ -8,7 +8,6 @@ public class Blog {
     private String title;
     private String content;
     private Timestamp postDate;
-
     private String url;
 
     public String getUrl() {

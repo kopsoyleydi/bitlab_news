@@ -13,6 +13,7 @@
     ArrayList<Blog> blogs = (ArrayList<Blog>) request.getAttribute("prof");
     User currentUser = (User) session.getAttribute("cur_user");
 %>
+<div class="container">
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">BitLab Blog</a>
@@ -62,6 +63,7 @@
         </div>
     </div>
 </nav>
+</div>
 <div class="row py-5 px-4">
     <div class="col-md-5 mx-auto">
         <div class="bg-white shadow rounded overflow-hidden">
