@@ -69,12 +69,13 @@ public class DBManager {
         int rows = 0;
         try{
             PreparedStatement statement = connection.prepareStatement("" +
-                    "INSERT INTO blogs (user_id, title, content, post_date, url) " +
-                    "VALUES (?, ?, ?, NOW(),?)");
+                    "INSERT INTO blogs (user_id, title, content, post_date, url, caregories_id) " +
+                    "VALUES (?, ?, ?, NOW(),?, ?)");
             statement.setLong(1, blog.getUser().getId());
             statement.setString(2, blog.getTitle());
             statement.setString(3, blog.getContent());
             statement.setString(4,blog.getUrl());
+            statement.setLong(5,blog.getCategories().getId());
             rows = statement.executeUpdate();
             statement.close();
         }catch (Exception e){
@@ -118,10 +119,11 @@ public class DBManager {
         Blog blog = null;
         try {
             PreparedStatement statement = connection.prepareStatement("" +
-                    "SELECT b.id, b.title, b.content, b.post_date, b.user_id, b.url, u.full_name, u.email," +
-                    " u.password,u.role ,u.role_id  " +
+                    "SELECT b.id, b.title, b.content, b.post_date, b.user_id, b.url, b.categories_id, u.full_name, u.email, " +
+                    " u.password,u.role ,u.role_id, ct.id ,ct.categories_name " +
                     "FROM blogs b " +
                     "INNER JOIN users u ON u.id = b.user_id " +
+                    "INNER JOIN categories ct ON ct.id = b.categories_id " +
                     "WHERE b.id = ? " +
                     "ORDER BY b.post_date DESC ");
             statement.setLong(1,id);
@@ -138,6 +140,10 @@ public class DBManager {
                 user.setRole(resultSet.getString("role"));
                 user.setRole_id(resultSet.getLong("role_id"));
                 blog.setUser(user);
+                Categories categories = new Categories();
+                categories.setId(resultSet.getLong("categories_id"));
+                categories.setName(resultSet.getString("categories_name"));
+                blog.setCategories(categories);
                 blog.setTitle(resultSet.getString("title"));
                 blog.setContent(resultSet.getString("content"));
                 blog.setUrl(resultSet.getString("url"));

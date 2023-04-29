@@ -83,7 +83,8 @@
                             <p class="mt-3"><%=blog.getContent()%></p>
                             <p class="mt-2">
                                 Posted by <strong><%=blog.getUser().getFullName()%></strong>
-                                at <strong><%=blog.getPostDate()%></strong>
+                                at <strong><%=blog.getPostDate()%></strong><br>
+                                categories: <strong><%=blog.getCategories().getName()%></strong>
                             </p>
                             <%
                                 if(currentUser != null){
