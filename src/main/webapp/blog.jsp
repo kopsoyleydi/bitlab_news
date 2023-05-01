@@ -47,6 +47,7 @@
                                     <li><a class="dropdown-item" href="/settings">Settings</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                                    <li><a class="dropdown-item" href="/addblog">Add blog</a></li>
                                 </ul>
                             </li>
                         </ul>
