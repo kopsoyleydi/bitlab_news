@@ -1,6 +1,7 @@
 package classes;
 
 import com.sun.jdi.ArrayReference;
+import com.sun.source.tree.NewArrayTree;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -233,4 +234,57 @@ public class DBManager {
         }
     }
 
+    public static ArrayList<Blog> searchNews(String key){
+        ArrayList<Blog> blogs = new ArrayList<Blog>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement("" +
+                    "SELECT b.id, b.title, b.content, b.post_date, b.user_id, b.url, u.full_name, u.email " +
+                    "FROM blogs b " +
+                    "INNER JOIN users u ON u.id = b.user_id " +
+                    "WHERE (b.title) LIKE LOWER(?)" +
+                    "ORDER BY b.post_date DESC");
+
+            statement.setString(1, key);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                Blog blog = new Blog();
+                blog.setId(resultSet.getLong("id"));
+                blog.setTitle(resultSet.getString("title"));
+                blog.setContent(resultSet.getString("content"));
+                blog.setPostDate(resultSet.getTimestamp("post_date"));
+                User user = new User();
+                user.setId(resultSet.getLong("user_id"));
+                user.setEmail(resultSet.getString("email"));
+                user.setFullName(resultSet.getString("full_name"));
+                blog.setUser(user);
+                blog.setUrl(resultSet.getString("url"));
+                blogs.add(blog);
+            }
+            statement.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return blogs;
+    }
+    public static void UpdateBlog(Blog blog){
+
+        try {
+            PreparedStatement statement = connection.prepareStatement("" +
+                    "UPDATE blogs SET title = ?, content = ?, url = ? " +
+                    "WHERE id = ? ");
+            statement.setString(1, blog.getTitle());
+            statement.setString(2, blog.getContent());
+            statement.setString(3, blog.getUrl());
+            statement.setLong(4, blog.getId());
+
+            statement.executeUpdate();
+            statement.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

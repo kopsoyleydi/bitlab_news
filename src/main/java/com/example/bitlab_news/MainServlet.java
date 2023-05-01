@@ -6,6 +6,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
+import java.awt.print.Book;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -13,8 +14,14 @@ import java.util.ArrayList;
 public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<Blog> blogs = DBManager.getAllBlogs();
-        request.setAttribute("blogs", blogs);
+        String key = request.getParameter("key");
+        if(key != null) {
+            ArrayList<Blog> blog = DBManager.searchNews("%"+key+"%");
+            request.setAttribute("blogs", blog);
+        }else{
+            ArrayList<Blog> blog = DBManager.getAllBlogs();
+            request.setAttribute("blogs", blog);
+        }
         request.getRequestDispatcher("index.jsp").forward(request,response);
     }
 

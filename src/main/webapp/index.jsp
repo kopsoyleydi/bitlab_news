@@ -14,6 +14,20 @@
 <div class="container" style="min-height: 500px;">
     <%@include file="components/header.jsp"%>
     <div class="row mt-3">
+        <form action="/main" method="get">
+            <div class="row mt-3">
+                <div class="col-10">
+                    <%
+                        String key = request.getParameter("key");
+                        if(key==null) key = "";
+                    %>
+                    <input type="text" class="form-control" name="key" placeholder="Search" value="<%=key%>">
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-success w-100">SEARCH</button>
+                </div>
+            </div>
+        </form>
         <div class="col-12">
             <%
                 ArrayList<Blog> blogs = (ArrayList<Blog>) request.getAttribute("blogs");
