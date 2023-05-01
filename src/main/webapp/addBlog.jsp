@@ -1,4 +1,5 @@
-<%--
+<%@ page import="classes.Categories" %>
+<%@ page import="classes.DBManager" %><%--
   Created by IntelliJ IDEA.
   User: omyrz
   Date: 25.04.2023
@@ -69,6 +70,25 @@
         <div class="row mt-2">
           <div class="col-12">
             <input class="form-control" name="url" rows="5" placeholder="Link">
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <label>Categories</label>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12">
+            <select class="form-select" name="categories">
+              <%
+                ArrayList<Categories> categories = DBManager.getCategories();
+                for(Categories c : categories){
+              %>
+              <option value="<%=c.getId()%>"><%=c.getName()%></option>
+              <%
+                }
+              %>
+            </select>
           </div>
         </div>
         <div class="row mt-3">

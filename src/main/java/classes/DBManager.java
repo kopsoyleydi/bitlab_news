@@ -70,7 +70,7 @@ public class DBManager {
         int rows = 0;
         try{
             PreparedStatement statement = connection.prepareStatement("" +
-                    "INSERT INTO blogs (user_id, title, content, post_date, url, caregories_id) " +
+                    "INSERT INTO blogs (user_id, title, content, post_date, url, categories_id) " +
                     "VALUES (?, ?, ?, NOW(),?, ?)");
             statement.setLong(1, blog.getUser().getId());
             statement.setString(2, blog.getTitle());
@@ -286,5 +286,25 @@ public class DBManager {
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+    public static ArrayList<Categories> getCategories(){
+        ArrayList<Categories> categories = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement("" +
+                    "SELECT * FROM categories");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                Categories categories1 = new Categories();
+                categories1.setId(resultSet.getLong("id"));
+                categories1.setName(resultSet.getString("categories_name"));
+                categories.add(categories1);
+            }
+            statement.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+
+        }
+        return categories;
     }
 }
